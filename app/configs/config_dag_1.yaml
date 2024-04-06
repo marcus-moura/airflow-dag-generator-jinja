@@ -1,0 +1,30 @@
+template: dag_template.jinja2
+
+dag:
+  owner: "Exemple"
+  dag_id: "dag_template_exemple_1"
+  description: "Dag template exemple"
+  schedule: 0 8 * * *
+  timeout: 120
+  retries: 2
+  retry_delay: 2
+  max_active_runs: 1
+  tags:
+    - exemple
+    - jinja
+    - template
+
+  doc_md: |
+    ## Dag exemple
+    - Dag cocumentation exemple with jinja template
+
+tasks:
+  task1:
+    bigquery:
+      dataset_id: "dag_exemple_bq"
+      table_id: "table_exemple"
+
+  task2:
+    bigquery:
+      dataset_id: dag_exemple_bq_2
+      table_id: table_exemple_2

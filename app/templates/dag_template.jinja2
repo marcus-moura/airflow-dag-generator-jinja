@@ -1,0 +1,52 @@
+from airflow.decorators import dag, task
+from airflow.operators.empty import EmptyOperator
+from datetime import datetime, timedelta
+from airflow.utils.dates import days_ago
+from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobOperator
+import os
+
+PROJECT_ID = os.getenv("PROJECT_ID")
+LOCATION = os.getenv("LOCATION")
+
+default_args = {
+    'owner': "{{ dag.owner }}",
+    'depends_on_past': False,
+    'start_date': days_ago(1),
+    'retries': {{ dag.retries }},
+    'retry_delay': timedelta(minutes={{ dag.retry_delay }}),
+}
+
+@dag(
+    dag_id="{{ dag.dag_id }}",
+    max_active_runs={{ dag.max_active_runs }},
+    schedule="{{ dag.schedule }}",
+    catchup=False,
+    description="{{ dag.description }}",
+    default_args=default_args,
+    dagrun_timeout=timedelta(minutes={{ dag.timeout }}),
+    tags={{ dag.tags }},
+    doc_md="""{{ dag.doc_md }}"""
+)
+def template_exemple():
+
+    start = EmptyOperator(task_id="start")
+
+    {%- for task, param in tasks.items() %}
+
+    bq_job_{{ task }} = BigQueryInsertJobOperator(
+        task_id=f"task_{{ param.bigquery.table_id }}",
+        location=LOCATION,
+        project_id=PROJECT_ID,
+        configuration={
+            "query": {
+                "query": f"SELECT * FROM {PROJECT_ID}.{{ param.bigquery.dataset_id }}.{{ param.bigquery.table_id }}",
+                "useLegacySql": False,
+                "priority": "BATCH",
+            }
+        },
+    )
+{%- endfor %}
+
+    end = EmptyOperator(task_id="end")
+        
+    start >> [bq_job_{{ tasks|join(", bq_job_") }}] >> end
