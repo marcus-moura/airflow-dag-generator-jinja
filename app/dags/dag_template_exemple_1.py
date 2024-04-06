@@ -17,7 +17,7 @@ default_args = {
 }
 
 @dag(
-    dag_id="dag_template_exemple_1",
+    dag_id="dag_template_exemple",
     max_active_runs=1,
     schedule="0 8 * * *",
     catchup=False,
