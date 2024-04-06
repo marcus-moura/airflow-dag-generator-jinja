@@ -118,7 +118,7 @@ Para executar o gerador de DAGs acesse o diretório `app` e execute a CLI.
 O arquivo `cli.py` fornece uma interface de linha de comando para interagir com o gerador de DAGs. Aqui estão alguns comandos disponíveis:
 
 - **Gerar todas DAGs:** Use o comando `python -m cli all` para gerar todas as DAGs disponíveis no diretório `configs` com base nos templates Jinja2.
-- **Listar DAGs:** Use o comando `python -m cli {config_file_name}.yaml` para gerar uma dag com base em um arquivo de configuração específico.
+- **Gerar DAG Específica:** Use o comando `python -m cli {config_file_name}.yaml` para gerar uma dag com base em um arquivo de configuração específico.
 
 Certifique-se de ter todas as dependências instaladas e as configurações corretamente definidas antes de usar os comandos CLI.
 
