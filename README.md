@@ -10,7 +10,10 @@ O projeto consiste em um sistema de geração de DAGs (Directed Acyclic Graphs) 
 - **Configuração Centralizada:** As configurações das DAGs são definidas em arquivos YAML para uma configuração centralizada e fácil personalização.
 - **Geração Automatizada:** Pode ser integrado a pipelines de CI/CD para automatizar a geração de DAGs em diferentes ambientes.
 
-### Componentes
+### Arquitetura do Projeto
+![alt text](arquitetura.png)
+
+## Componentes
 
 - **DAG Generator:** Classe responsável por gerar as DAGs com base nos modelos Jinja2 e configurações YAML fornecidos.
 - **Templates Jinja2:** Definem a estrutura das DAGs, incluindo tarefas, dependências e outros parâmetros configuráveis.
