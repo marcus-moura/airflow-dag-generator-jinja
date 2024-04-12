@@ -133,4 +133,6 @@ Se você tiver dúvidas ou sugestões, entre em contato comigo em marcuspaulo.mo
 
 - [Python](https://www.python.org/)
 - [Jinja](https://jinja.palletsprojects.com/en/3.1.x/)
+- [Typer](https://typer.tiangolo.com/)
+- [Yaml](https://yaml.org/spec/1.2.2/)
 
